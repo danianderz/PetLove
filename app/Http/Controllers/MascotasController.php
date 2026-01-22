@@ -26,7 +26,7 @@ class MascotasController extends Controller
         'raza'             => 'required|string|max:255',
         'genero'           => 'required|string',
         'peso'             => 'nullable|numeric',
-        'fecha_nacimiento' => 'nullable|date',
+        'fecha_nacimiento' => 'nullable|date|before_or_equal:today',
         'foto'             => 'nullable|image|max:2048', // Máximo 2MB
     ], [
         // Mensajes personalizados en español
@@ -77,7 +77,7 @@ class MascotasController extends Controller
             'raza'             => 'required|string|max:255',
             'genero'           => 'required|string',
             'peso'             => 'nullable|numeric',
-            'fecha_nacimiento' => 'nullable|date',
+            'fecha_nacimiento' => 'nullable|date|before_or_equal:today',
             'foto'             => 'nullable|image|max:2048', // Máximo
         ], [
             // Mensajes personalizados en español

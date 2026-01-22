@@ -20,7 +20,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Index() {
-    const { data, setData, post, processing, errors } = useForm({
+    const hoy = new Date().toISOString().split("T")[0];
+    const { data, setData, post, errors } = useForm({
         nombre: '',
         raza: '',
         foto: null as File | null,
@@ -29,16 +30,16 @@ export default function Index() {
         genero: 'Macho',
     });
 
-   
+
     function handleSumit(e: React.FormEvent) {
-    e.preventDefault();
-    
-    // Los datos del estado 'data' se envían automáticamente.
-    post(store().url, {
-        forceFormData: true, // Importante para que la 'foto' se envíe correctamente
-        onSuccess: () => console.log('Mascota guardada'),
-    });
-}
+        e.preventDefault();
+
+        // Los datos del estado 'data' se envían automáticamente.
+        post(store().url, {
+            forceFormData: true, // Importante para que la 'foto' se envíe correctamente
+            onSuccess: () => console.log('Mascota guardada'),
+        });
+    }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -48,8 +49,8 @@ export default function Index() {
                     {/*Display error*/}
                     {Object.keys(errors).length > 0 && (
                         <Alert>
-                        <InfoIcon />
-                        <AlertTitle>Error!</AlertTitle>
+                            <InfoIcon />
+                            <AlertTitle>Error!</AlertTitle>
                             <AlertDescription>
                                 <ul>
                                     {Object.entries(errors).map(([key, message]) => (
@@ -57,7 +58,7 @@ export default function Index() {
                                     ))}
                                 </ul>
                             </AlertDescription>
-                    </Alert>
+                        </Alert>
                     )}
                     <div className='gap-1.5'>
                         <Label htmlFor="nombre">Nombre:</Label>
@@ -76,7 +77,12 @@ export default function Index() {
 
                     <div className='gap-1.5'>
                         <Label htmlFor="fecha_nacimiento">Fecha de Nacimiento:</Label>
-                        <Input type="date" value={data.fecha_nacimiento} onChange={(e) => setData('fecha_nacimiento', e.target.value)} />
+                        <Input
+                            type="date"
+                            max={hoy}
+                            value={data.fecha_nacimiento}
+                            onChange={(e) => setData('fecha_nacimiento', e.target.value)}
+                        />
                     </div>
 
                     <div className='gap-1.5'>
@@ -86,9 +92,9 @@ export default function Index() {
 
                     <div className='grid gap-3'>
                         <Label>Género:</Label>
-                        <RadioGroup 
+                        <RadioGroup
                             value={data.genero}
-                            onValueChange={(value) => setData('genero', value)} 
+                            onValueChange={(value) => setData('genero', value)}
                             className="flex gap-6 mt-1"
                         >
                             <div className="flex items-center space-x-2">

@@ -31,6 +31,7 @@ interface Props {
 }
 
 export default function Edit({ mascota }: Props) {
+    const hoy = new Date().toISOString().split("T")[0];
     const { data, setData, post, processing, errors } = useForm({
         _method: 'put',
         nombre: mascota.nombre || '',
@@ -86,7 +87,12 @@ export default function Edit({ mascota }: Props) {
 
                     <div className='gap-1.5'>
                         <Label htmlFor="fecha_nacimiento">Fecha de Nacimiento:</Label>
-                        <Input type="date" value={data.fecha_nacimiento} onChange={(e) => setData('fecha_nacimiento', e.target.value)} />
+                        <Input
+                            type="date"
+                            max={hoy}
+                            value={data.fecha_nacimiento}
+                            onChange={(e) => setData('fecha_nacimiento', e.target.value)}
+                        />
                     </div>
 
                     <div className='gap-1.5'>
