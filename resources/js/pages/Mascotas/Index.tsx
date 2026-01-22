@@ -1,7 +1,7 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { create, edit } from '@/routes/mascotas'; // Asegúrate que estas rutas funcionen con tu config
+import { create, edit } from '@/routes/mascotas'; 
 import { Megaphone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -15,7 +15,7 @@ import {
     TableRow,
 } from "@/components/ui/table";
 
-// Importa los componentes de paginación de Shadcn
+
 import {
     Pagination,
     PaginationContent,
@@ -40,7 +40,7 @@ interface Mascota {
     usuario_id: number;
 }
 
-// Nueva interfaz para la estructura paginada de Laravel
+
 interface PaginatedData<T> {
     data: T[];
     links: {
@@ -59,7 +59,7 @@ interface PaginatedData<T> {
 
 interface PageProps {
     flash: { message?: string; };
-    mascotas: PaginatedData<Mascota>; // Cambiado de Mascota[] a PaginatedData
+    mascotas: PaginatedData<Mascota>; 
 }
 
 export default function Index() {
@@ -159,13 +159,11 @@ export default function Index() {
                                 </PaginationItem>
 
                                 {mascotas.links.map((link, idx) => {
-                                    
-                                    // 1. Ignoramos los botones de los extremos (Prev/Next) ya que los pusimos manual arriba/abajo
+                                        
                                     if (link.label.includes('Previous') || link.label.includes('Next') || idx === 0 || idx === mascotas.links.length - 1) {
                                         return null;
                                     }
-
-                                    // 2. Limpiamos cualquier rastro de HTML que envíe Laravel por error
+                                   
                                     const cleanLabel = link.label.replace('&laquo;', '').replace('&raquo;', '').trim();
 
                                     return (
