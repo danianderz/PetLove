@@ -99,12 +99,12 @@ export default function Index() {
                         
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="w-[80px]">ID</TableHead>
-                                <TableHead>Foto</TableHead>
+                                <TableHead className="w-[100px]">ID</TableHead>
+                                <TableHead >Foto</TableHead>
                                 <TableHead>Nombre</TableHead>
                                 <TableHead>Raza</TableHead>
                                 <TableHead>Género</TableHead>
-                                <TableHead className="text-right">Peso (kg)</TableHead>
+                                <TableHead >Peso (kg)</TableHead>
                                 <TableHead className='text-center'>Acciones</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -128,7 +128,7 @@ export default function Index() {
                                     <TableCell className="font-medium">{mascota.nombre}</TableCell>
                                     <TableCell>{mascota.raza}</TableCell>
                                     <TableCell>{mascota.genero}</TableCell>
-                                    <TableCell className="text-right">{mascota.peso || '--'}</TableCell>
+                                    <TableCell >{mascota.peso || '--'}</TableCell>
                                     <TableCell className="text-center space-x-2">
                                         <Link href={edit(mascota.id)}>
                                             <Button size="sm" className='bg-sky-600  hover:bg-sky-700 '>Editar</Button>
