@@ -9,12 +9,16 @@ use Inertia\Inertia;
 class MascotasController extends Controller
 {
     public function index()
-    {
-        $mascotas = Mascota::where('usuario_id', auth()->id())->get();
-        return Inertia::render('Mascotas/Index', [
-            'mascotas' => $mascotas
-        ]);
-    }
+{
+    // Cambiamos get() por paginate(10) para mostrar 10 por página
+    $mascotas = Mascota::where('usuario_id', auth()->id())
+        ->latest()
+        ->paginate(10);
+
+    return Inertia::render('Mascotas/Index', [
+        'mascotas' => $mascotas
+    ]);
+}
     public function create()
     {
         return Inertia::render('Mascotas/Create', []);
