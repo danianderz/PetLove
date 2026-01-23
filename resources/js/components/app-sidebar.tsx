@@ -27,7 +27,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Registros médicos',
-        href: '/registros-medicos',
+        href: '/registros',
         icon: Syringe,
     },
     {

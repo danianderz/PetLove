@@ -131,7 +131,7 @@ export default function Index() {
                                     <TableCell >{mascota.peso || '--'}</TableCell>
                                     <TableCell className="text-center space-x-2">
                                         <Link href={edit(mascota.id)}>
-                                            <Button size="sm" className='bg-sky-600  hover:bg-sky-700 '>Editar</Button>
+                                            <Button size="sm" className='bg-blue-600  hover:bg-blue-700 '>Editar</Button>
                                         </Link>
                                         <Button
                                             size="sm"

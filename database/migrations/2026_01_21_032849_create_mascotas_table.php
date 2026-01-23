@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('mascotas', function (Blueprint $table) {
             $table->id();
-            // Relación con la tabla usuarios
+            
             $table->foreignId('usuario_id')->constrained('users')->onDelete('cascade');
             
             $table->string('nombre');
@@ -23,14 +23,12 @@ return new class extends Migration
             $table->decimal('peso', 8, 2)->nullable();
             $table->string('genero');
             
-            // Laravel usa created_at y updated_at por defecto para fechas de creación
+            
             $table->timestamps(); 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('mascotas');
