@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { ImageIcon, InfoIcon, Weight, Calendar, PawPrint, Save, Pencil } from 'lucide-react';
+import { ImageIcon, InfoIcon, Weight, Calendar, PawPrint, Save, Pencil, PlusCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { update } from '@/routes/mascotas';
 
@@ -56,7 +56,7 @@ export default function Edit({ mascota }: Props) {
                 
                 <div className="mb-6">
                     <h2 className="text-2xl font-bold flex items-center gap-2">
-                        <PawPrint className="w-6 h-6 text-blue-600" />
+                        <Pencil className="w-6 h-6 text-yellow-500"/>
                         Editar Mascota: {mascota.nombre}
                     </h2>
                     <p className="text-muted-foreground text-sm">Modifica los datos de tu mascota en el sistema.</p>
@@ -167,7 +167,7 @@ export default function Edit({ mascota }: Props) {
                         <Button 
                             disabled={processing} 
                             type="submit" 
-                            className="bg-blue-600 hover:bg-blue-700 flex-1"
+                            className="bg-yellow-500 hover:bg-yellow-600 flex-1"
                         >
                             <Save className="w-4 h-4 mr-2" />
                             {processing ? 'Actualizando...' : 'Guardar Cambios'}

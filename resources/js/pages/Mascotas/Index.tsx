@@ -2,7 +2,7 @@ import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { create, edit } from '@/routes/mascotas'; 
-import { Megaphone, Cat } from 'lucide-react';
+import { Megaphone, Cat, Edit3, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
@@ -81,10 +81,10 @@ export default function Index() {
 
             <div className='m-4 flex justify-between items-center'>
                 <h2 className="text-xl font-semibold flex items-center gap-2">
-                    <Cat className="w-5 h-5" /> Tus Mascotas
+                    <Cat className="w-5 h-5 text-yellow-500" /> Tus Mascotas
                 </h2>
                 <Link href="/mascotas/create">
-                    <Button className='bg-green-600 hover:bg-green-700 font-semibold '>Añadir Mascota</Button>
+                    <Button className='bg-yellow-500 hover:bg-yellow-600 font-semibold '>Añadir Mascota</Button>
                 </Link>
             </div>
 
@@ -101,7 +101,7 @@ export default function Index() {
             {mascotas.data.length > 0 ? (
                 <div className='m-4 border rounded-lg overflow-hidden bg-white dark:bg-zinc-950'>
                     <Table>       
-                        <TableHeader>
+                        <TableHeader className="bg-slate-50 dark:bg-zinc-900">
                             <TableRow>
                                 <TableHead className="w-[80px]">ID</TableHead>
                                 <TableHead >Foto</TableHead>
@@ -129,23 +129,23 @@ export default function Index() {
                                             </div>
                                         )}
                                     </TableCell>
-                                    <TableCell className="font-medium">{mascota.nombre}</TableCell>
+                                    <TableCell className="font-medium text-blue-600 dark:text-blue-400">{mascota.nombre}</TableCell>
                                     <TableCell>{mascota.raza}</TableCell>
                                     <TableCell>{mascota.genero}</TableCell>
                                     <TableCell className='text-center'>{mascota.peso || '--'} kg</TableCell>
                                     <TableCell className="text-center space-x-2">
                                         <Link href={edit(mascota.id)}>
-                                            <Button size="sm" className='bg-blue-600 hover:bg-blue-700 !text-white'>
-                                                Editar
+                                            <Button size="sm" variant="outline" className='border-blue-600 text-blue-600 hover:bg-blue-100'>
+                                                <Edit3 className="w-4 h-4" />
                                             </Button>
                                         </Link>
                                         <Button
                                             size="sm"
-                                            className='bg-red-700 hover:bg-red-800 !text-white'
+                                            variant="outline" className='border-red-600 text-red-600 hover:bg-red-100'
                                             disabled={processing}
                                             onClick={() => handleDelete(mascota.id)}                                        
                                         >
-                                            Eliminar
+                                            <Trash2 className="w-4 h-4" />
                                         </Button>
                                     </TableCell>
                                 </TableRow>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MascotasController;
 use App\Http\Controllers\ResgistrosController;
+use App\Http\Controllers\AlimentosController;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
@@ -32,6 +33,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     'edit'    => 'registros.edit',
     'update'  => 'registros.update',
     'destroy' => 'registros.destroy',
+    ]);
+    // Rutas para el CRUD de Alimentos
+    Route::resource('alimentacion', AlimentosController::class)->names([
+    'index'   => 'alimentacion.index',
+    'create'  => 'alimentacion.create',
+    'store'   => 'alimentacion.store',
+    'edit'    => 'alimentacion.edit',
+    'update'  => 'alimentacion.update',
+    'destroy' => 'alimentacion.destroy',
 ]);
     
 });

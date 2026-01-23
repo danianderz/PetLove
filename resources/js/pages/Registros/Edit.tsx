@@ -13,7 +13,7 @@ import {
     SelectValue 
 } from "@/components/ui/select";
 import { Switch } from '@/components/ui/switch';
-import { InfoIcon, Save, Stethoscope } from 'lucide-react';
+import { InfoIcon, Pencil, Save, Stethoscope } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface Mascota {
@@ -67,7 +67,7 @@ export default function Edit({ registro, mascotas }: Props) {
             <div className='w-full max-w-2xl p-6'>
                 <div className="mb-6">
                     <h2 className="text-2xl font-bold flex items-center gap-2">
-                        <Stethoscope className="w-6 h-6 text-blue-600" />
+                        <Pencil className="w-6 h-6 text-blue-600" />
                         Editar Registro Médico
                     </h2>
                     <p className="text-muted-foreground text-sm">Ingresa los detalles de la atención o cita médica.</p>

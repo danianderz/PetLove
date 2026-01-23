@@ -12,7 +12,7 @@ import {
     SelectTrigger, 
     SelectValue 
 } from "@/components/ui/select";
-import { InfoIcon, Save, Stethoscope } from 'lucide-react';
+import { InfoIcon, PlusCircle, Save, Stethoscope } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 import { Switch } from '@/components/ui/switch'; // Para el campo 'completado'
@@ -55,7 +55,7 @@ export default function Create({ mascotas }: Props) {
             <div className='w-full max-w-2xl p-6'>
                 <div className="mb-6">
                     <h2 className="text-2xl font-bold flex items-center gap-2">
-                        <Stethoscope className="w-6 h-6 text-blue-600" />
+                        <PlusCircle className="w-6 h-6 text-blue-600" />
                         Crear Registro Médico
                     </h2>
                     <p className="text-muted-foreground text-sm">Ingresa los detalles de la atención o cita médica.</p>
