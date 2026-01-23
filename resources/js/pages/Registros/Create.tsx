@@ -12,7 +12,7 @@ import {
     SelectTrigger, 
     SelectValue 
 } from "@/components/ui/select";
-import { InfoIcon, Stethoscope } from 'lucide-react';
+import { InfoIcon, Save, Stethoscope } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 import { Switch } from '@/components/ui/switch'; // Para el campo 'completado'
@@ -63,7 +63,7 @@ export default function Create({ mascotas }: Props) {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {Object.keys(errors).length > 0 && (
-                        <Alert variant="destructive">
+                        <Alert variant="destructive" className="mb-4 border-red-600">
                             <InfoIcon className="h-4 w-4" />
                             <AlertTitle>Error de validación</AlertTitle>
                             <AlertDescription>
@@ -106,16 +106,18 @@ export default function Create({ mascotas }: Props) {
                                     <SelectItem value="Otro">Otro</SelectItem>
                                 </SelectContent>
                             </Select>
+                            
                         </div>
 
                         {/* Fecha de la Cita */}
                         <div className='grid gap-2'>
-                            <Label htmlFor="fecha_cita">Fecha de la Cita:</Label>
+                            <Label htmlFor="fecha_cita">Fecha y Hora:</Label>
                             <Input 
                                 type="datetime-local" 
                                 value={data.fecha_cita} 
                                 onChange={(e) => setData('fecha_cita', e.target.value)} 
                             />
+                            {errors.fecha_cita && <p className="text-red-500 text-xs">{errors.fecha_cita}</p>}
                         </div>
                     </div>
 
@@ -153,7 +155,8 @@ export default function Create({ mascotas }: Props) {
 
                     <div className="flex gap-4">
                         <Button disabled={processing} type="submit" className="bg-blue-600 hover:bg-blue-700 flex-1">
-                            Guardar Registro
+                            <Save className="w-4 h-4 mr-2" />
+                            {processing ? 'Guardando...' : 'Guardar Registro'}
                         </Button>
                         <Link href="/registros" className="flex-1">
                             <Button variant="outline" type="button" className="w-full">Cancelar</Button>

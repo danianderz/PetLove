@@ -2,7 +2,7 @@ import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
 import { create, edit } from '@/routes/mascotas'; 
-import { Megaphone } from 'lucide-react';
+import { Megaphone, Cat } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
@@ -80,12 +80,17 @@ export default function Index() {
             <Head title="Mascotas" />
 
             <div className='m-4 flex justify-between items-center'>
-                <Link href={create()}><Button>Añadir Mascota</Button></Link>
+                <h2 className="text-xl font-semibold flex items-center gap-2">
+                    <Cat className="w-5 h-5" /> Tus Mascotas
+                </h2>
+                <Link href="/mascotas/create">
+                    <Button className='bg-green-600 hover:bg-green-700 font-semibold '>Añadir Mascota</Button>
+                </Link>
             </div>
 
             <div className="px-4">
                 {flash.message && (
-                    <Alert className="mb-4">
+                    <Alert className="mb-4 border-green-500 text-green-600 dark:text-green-400">
                         <Megaphone className="h-4 w-4" />
                         <AlertTitle>¡Notificación!</AlertTitle>
                         <AlertDescription>{flash.message}</AlertDescription>
@@ -94,17 +99,16 @@ export default function Index() {
             </div>
 
             {mascotas.data.length > 0 ? (
-                <div className='m-4 border rounded-lg overflow-hidden'>
-                    <Table>
-                        
+                <div className='m-4 border rounded-lg overflow-hidden bg-white dark:bg-zinc-950'>
+                    <Table>       
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="w-[100px]">ID</TableHead>
+                                <TableHead className="w-[80px]">ID</TableHead>
                                 <TableHead >Foto</TableHead>
                                 <TableHead>Nombre</TableHead>
                                 <TableHead>Raza</TableHead>
                                 <TableHead>Género</TableHead>
-                                <TableHead >Peso (kg)</TableHead>
+                                <TableHead className='text-center'>Peso</TableHead>
                                 <TableHead className='text-center'>Acciones</TableHead>
                             </TableRow>
                         </TableHeader>
@@ -128,16 +132,18 @@ export default function Index() {
                                     <TableCell className="font-medium">{mascota.nombre}</TableCell>
                                     <TableCell>{mascota.raza}</TableCell>
                                     <TableCell>{mascota.genero}</TableCell>
-                                    <TableCell >{mascota.peso || '--'}</TableCell>
+                                    <TableCell className='text-center'>{mascota.peso || '--'} kg</TableCell>
                                     <TableCell className="text-center space-x-2">
                                         <Link href={edit(mascota.id)}>
-                                            <Button size="sm" className='bg-blue-600  hover:bg-blue-700 '>Editar</Button>
+                                            <Button size="sm" className='bg-blue-600 hover:bg-blue-700 !text-white'>
+                                                Editar
+                                            </Button>
                                         </Link>
                                         <Button
                                             size="sm"
+                                            className='bg-red-700 hover:bg-red-800 !text-white'
                                             disabled={processing}
-                                            onClick={() => handleDelete(mascota.id)}
-                                            className='bg-red-500 hover:bg-red-700'
+                                            onClick={() => handleDelete(mascota.id)}                                        
                                         >
                                             Eliminar
                                         </Button>
