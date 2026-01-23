@@ -5,6 +5,7 @@ use App\Http\Controllers\MascotasController;
 use App\Http\Controllers\ResgistrosController;
 use App\Http\Controllers\AlimentosController;
 use App\Http\Controllers\GastosController;
+use App\Http\Controllers\MomentosController;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
@@ -54,7 +55,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     'update'  => 'gastos.update',
     'destroy' => 'gastos.destroy',
 ]);
+    Route::resource('momentos', MomentosController::class)->names([
+    'index'   => 'momentos.index',
+    'create'  => 'momentos.create',
+    'store'   => 'momentos.store',
+    'edit'    => 'momentos.edit',
+    'update'  => 'momentos.update',
+    'destroy' => 'momentos.destroy',
+]);
     
+
 });
 
 require __DIR__.'/settings.php';
