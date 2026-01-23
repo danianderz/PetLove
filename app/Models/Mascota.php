@@ -30,4 +30,8 @@ class Mascota extends Model
     {
         return $this->hasMany(RegistroMedico::class);
     }
+    public function alimentos(): HasMany
+    {
+        return $this->hasMany(Alimento::class);
+    }
 }

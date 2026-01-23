@@ -1,7 +1,7 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Megaphone, Stethoscope, CheckCircle2, Circle, Plus, Edit3, Trash2 } from 'lucide-react';
+import { Megaphone, Utensils, Info, Plus, Trash2, Edit3 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
@@ -22,18 +22,17 @@ import {
 } from "@/components/ui/pagination";
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Registros Médicos', href: '/registros' },
+    { title: 'Alimentos', href: '/alimentos' },
 ];
 
-interface RegistroMedico {
+interface Alimento {
     id: number;
     mascota_id: number;
-    tipo: string;
-    titulo: string;
-    descripcion: string;
-    fecha_cita: string;
-    completado: boolean;
-    mascota?: { nombre: string }; // Para mostrar el nombre de la mascota
+    nombre: string;
+    marca: string;
+    cantidad_diaria: string;
+    notas?: string;
+    mascota?: { nombre: string };
 }
 
 interface PaginatedData<T> {
@@ -49,29 +48,31 @@ interface PaginatedData<T> {
 
 interface PageProps {
     flash: { message?: string; };
-    registros: PaginatedData<RegistroMedico>;
+    alimentos: PaginatedData<Alimento>;
 }
 
 export default function Index() {
-    const { registros, flash } = usePage().props as unknown as PageProps;
+    const { alimentos, flash } = usePage().props as unknown as PageProps;
     const { processing, delete: destroy } = useForm({});
 
     const handleDelete = (id: number) => {
-        if (confirm(`¿Estás seguro de eliminar este registro médico?`)) {
-            destroy(`/registros/${id}`);
+        if (confirm(`¿Estás seguro de eliminar este registro de alimento?`)) {
+            destroy(`/alimentos/${id}`);
         }
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Registros Médicos" />
+            <Head title="Alimentación" />
 
             <div className='m-4 flex justify-between items-center'>
                 <h2 className="text-xl font-semibold flex items-center gap-2">
-                    <Stethoscope className="w-5 h-5 text-blue-600" /> Historial Médico
+                    <Utensils className="w-5 h-5 text-orange-500" /> Plan de Alimentación
                 </h2>
-                <Link href="/registros/create">
-                    <Button className='bg-blue-600 hover:bg-blue-700 font-semibold '>Nuevo Registro</Button>
+                <Link href="/alimentacion/create">
+                    <Button className='bg-orange-500 hover:bg-orange-600 font-semibold'>
+                    Nuevo Alimento
+                    </Button>
                 </Link>
             </div>
 
@@ -85,51 +86,48 @@ export default function Index() {
                 )}
             </div>
 
-            {registros.data.length > 0 ? (
+            {alimentos.data.length > 0 ? (
                 <div className='m-4 border rounded-lg overflow-hidden bg-white dark:bg-zinc-950'>
                     <Table>
                         <TableHeader className="bg-slate-50 dark:bg-zinc-900">
                             <TableRow>
                                 <TableHead className="w-[80px]">ID</TableHead>
                                 <TableHead>Mascota</TableHead>
-                                <TableHead>Título / Tipo</TableHead>
-                                <TableHead>Fecha Cita</TableHead>
-                                <TableHead className="text-center">Estado</TableHead>
+                                <TableHead>Alimento / Marca</TableHead>
+                                <TableHead>Porción Diaria</TableHead>
                                 <TableHead className='text-center'>Acciones</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {registros.data.map((reg) => (
-                                <TableRow key={reg.id}>
-                                    <TableCell className="font-mono text-muted-foreground text-xs">#{reg.id}</TableCell>
-                                    <TableCell className="font-medium text-blue-600 dark:text-blue-400" >
-                                        {reg.mascota?.nombre || 'N/A'}
+                            {alimentos.data.map((ali) => (
+                                <TableRow key={ali.id}>
+                                    <TableCell className="font-mono text-muted-foreground text-xs">#{ali.id}</TableCell>
+                                    <TableCell className="font-medium text-blue-600 dark:text-blue-400">
+                                        {ali.mascota?.nombre || 'N/A'}
                                     </TableCell>
                                     <TableCell>
                                         <div className="flex flex-col">
-                                            <span className="font-semibold">{reg.titulo}</span>
-                                            <span className="text-xs text-muted-foreground uppercase">{reg.tipo}</span>
+                                            <span className="font-semibold">{ali.nombre}</span>
+                                            <span className="text-xs text-muted-foreground uppercase">{ali.marca}</span>
                                         </div>
                                     </TableCell>
-                                    <TableCell>{new Date(reg.fecha_cita).toLocaleDateString()}</TableCell>
-                                    <TableCell className="text-center">
-                                        {reg.completado ? (
-                                            <CheckCircle2 className="w-5 h-5 text-green-500 mx-auto" />
-                                        ) : (
-                                            <Circle className="w-5 h-5 text-amber-500 mx-auto" />
-                                        )}
+                                    <TableCell>
+                                        <span className="bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 px-2 py-1 rounded text-xs font-bold">
+                                            {ali.cantidad_diaria}
+                                        </span>
                                     </TableCell>
                                     <TableCell className="text-center space-x-2">
-                                        <Link href={`/registros/${reg.id}/edit`}>
-                                            <Button size="sm" variant="outline" className='border-blue-600 text-blue-600 hover:bg-blue-100'>
+                                        <Link href={`/alimentacion/${ali.id}/edit`}>
+                                            <Button size="sm" variant="outline" className='border-blue-600 text-blue-600 hover:bg-blue-50'>
                                                 <Edit3 className="w-4 h-4" />
                                             </Button>
                                         </Link>
                                         <Button
                                             size="sm"
-                                            variant="outline" className='border-red-600 text-red-600 hover:bg-red-100'
+                                            variant="outline"
+                                            className='border-red-600 text-red-600 hover:bg-red-100'
                                             disabled={processing}
-                                            onClick={() => handleDelete(reg.id)}
+                                            onClick={() => handleDelete(ali.id)}
                                         >
                                             <Trash2 className="w-4 h-4" />
                                         </Button>
@@ -139,19 +137,19 @@ export default function Index() {
                         </TableBody>
                     </Table>
 
-                    {/* PAGINACIÓN CORREGIDA */}
+                    {/* PAGINACIÓN */}
                     <div className="p-4 border-t flex flex-col items-center gap-4 bg-slate-50 dark:bg-transparent">
                         <Pagination>
                             <PaginationContent>
                                 <PaginationItem>
                                     <PaginationPrevious 
-                                        href={registros.prev_page_url || '#'} 
-                                        className={!registros.prev_page_url ? 'pointer-events-none opacity-50' : ''}
+                                        href={alimentos.prev_page_url || '#'} 
+                                        className={!alimentos.prev_page_url ? 'pointer-events-none opacity-50' : ''}
                                     />
                                 </PaginationItem>
 
-                                {registros.links.map((link, idx) => {
-                                    if (idx === 0 || idx === registros.links.length - 1) return null;
+                                {alimentos.links.map((link, idx) => {
+                                    if (idx === 0 || idx === alimentos.links.length - 1) return null;
                                     const cleanLabel = link.label.replace('&laquo;', '').replace('&raquo;', '').trim();
                                     return (
                                         <PaginationItem key={idx}>
@@ -164,21 +162,21 @@ export default function Index() {
 
                                 <PaginationItem>
                                     <PaginationNext 
-                                        href={registros.next_page_url || '#'} 
-                                        className={!registros.next_page_url ? 'pointer-events-none opacity-50' : ''}
+                                        href={alimentos.next_page_url || '#'} 
+                                        className={!alimentos.next_page_url ? 'pointer-events-none opacity-50' : ''}
                                     />
                                 </PaginationItem>
                             </PaginationContent>
                         </Pagination>
                         <p className="text-xs text-muted-foreground">
-                            Mostrando {registros.from} - {registros.to} de {registros.total} registros
+                            Mostrando {alimentos.from} - {alimentos.to} de {alimentos.total} registros
                         </p>
                     </div>
                 </div>
             ) : (
                 <div className="p-20 text-center border-2 border-dashed m-4 rounded-xl text-muted-foreground">
-                    <Stethoscope className="w-12 h-12 mx-auto mb-4 opacity-20" />
-                    <p>No hay registros médicos cargados.</p>
+                    <Utensils className="w-12 h-12 mx-auto mb-4 opacity-20" />
+                    <p>No hay registros de alimentación cargados.</p>
                 </div>
             )}
         </AppLayout>
