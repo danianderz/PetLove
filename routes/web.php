@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MascotasController;
+use App\Http\Controllers\ResgistrosController;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
@@ -23,6 +24,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mascotas/{id}/edit', [MascotasController::class, 'edit'])->name('mascotas.edit');
     Route::put('/mascotas/{id}', [MascotasController::class, 'update'])->name('mascotas.update');
     Route::delete('/mascotas/{id}', [MascotasController::class, 'destroy'])->name('mascotas.destroy');
+
+    Route::resource('registros', ResgistrosController::class)->names([
+    'index'   => 'registros.index',
+    'create'  => 'registros.create',
+    'store'   => 'registros.store',
+    'edit'    => 'registros.edit',
+    'update'  => 'registros.update',
+    'destroy' => 'registros.destroy',
+]);
     
 });
 

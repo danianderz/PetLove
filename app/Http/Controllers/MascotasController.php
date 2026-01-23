@@ -10,7 +10,6 @@ class MascotasController extends Controller
 {
     public function index()
 {
-    // Cambiamos get() por paginate(10) para mostrar 10 por página
     $mascotas = Mascota::where('usuario_id', auth()->id())
         ->latest()
         ->paginate(10);
@@ -33,7 +32,7 @@ class MascotasController extends Controller
         'fecha_nacimiento' => 'nullable|date|before_or_equal:today',
         'foto'             => 'nullable|image|max:2048', // Máximo 2MB
     ], [
-        // Mensajes personalizados en español
+
         'nombre.required' => 'El nombre de la mascota es obligatorio.',
         'genero.required' => 'Debes seleccionar si es Macho o Hembra.',
         'raza.required'   => 'La raza de la mascota es obligatoria.',
@@ -84,7 +83,7 @@ class MascotasController extends Controller
             'fecha_nacimiento' => 'nullable|date|before_or_equal:today',
             'foto'             => 'nullable|image|max:2048', // Máximo
         ], [
-            // Mensajes personalizados en español
+        
             'nombre.required' => 'El nombre de la mascota es obligatorio.',
             'genero.required' => 'Debes seleccionar si es Macho o Hembra.',         
             'raza.required'   => 'La raza de la mascota es obligatoria.',
@@ -98,14 +97,12 @@ class MascotasController extends Controller
         $mascota->foto = $path;
     }
 
-    // 3. Actualizar el resto de campos manualmente o con update()
     $mascota->nombre = $validated['nombre'];
     $mascota->raza = $validated['raza'];
     $mascota->genero = $validated['genero'];
     $mascota->peso = $validated['peso'];
     $mascota->fecha_nacimiento = $validated['fecha_nacimiento'];
 
-    // 4. Guardar los cambios definitivamente
     $mascota->save();
 
     return redirect()->route('mascotas.index')->with('message', 'Mascota actualizada correctamente.');
