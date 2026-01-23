@@ -90,9 +90,9 @@ export default function Index() {
 
             <div className="px-4">
                 {flash.message && (
-                    <Alert className="mb-4 border-green-500 text-green-600 dark:text-green-400">
+                    <Alert className="mb-4 border-green-500 text-green-600 dark:text-green-400 bg-green-50/50 dark:bg-green-950/20">
                         <Megaphone className="h-4 w-4" />
-                        <AlertTitle>¡Notificación!</AlertTitle>
+                        <AlertTitle>¡Éxito!</AlertTitle>
                         <AlertDescription>{flash.message}</AlertDescription>
                     </Alert>
                 )}
@@ -129,7 +129,7 @@ export default function Index() {
                                             </div>
                                         )}
                                     </TableCell>
-                                    <TableCell className="font-medium text-blue-600 dark:text-blue-400">{mascota.nombre}</TableCell>
+                                    <TableCell className="font-medium text-yellow-600 dark:text-yellow-400">{mascota.nombre}</TableCell>
                                     <TableCell>{mascota.raza}</TableCell>
                                     <TableCell>{mascota.genero}</TableCell>
                                     <TableCell className='text-center'>{mascota.peso || '--'} kg</TableCell>
@@ -197,9 +197,10 @@ export default function Index() {
                         </p>
                     </div>
                 </div>
-            ) : (
-                <div className="p-8 text-center text-muted-foreground">
-                    No tienes mascotas registradas todavía.
+            ) : (               
+                <div className="p-20 text-center border-2 border-dashed m-4 rounded-xl text-muted-foreground">
+                    <Cat className="w-12 h-12 mx-auto mb-4 opacity-20" />
+                    <p>No tienes mascotas registradas todavía.</p>
                 </div>
             )}
         </AppLayout>

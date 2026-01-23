@@ -13,13 +13,18 @@ return new class extends Migration
     {
         Schema::create('gastos', function (Blueprint $table) {
             $table->id();
+            
+            $table->foreignId('mascota_id')->constrained('mascotas')->onDelete('cascade');
+  
+            $table->string('categoria'); 
+            $table->decimal('monto', 10, 2); 
+            $table->text('descripcion')->nullable(); 
+            $table->date('fecha'); 
+            
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('gastos');

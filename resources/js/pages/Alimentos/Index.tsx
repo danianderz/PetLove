@@ -57,7 +57,7 @@ export default function Index() {
 
     const handleDelete = (id: number) => {
         if (confirm(`¿Estás seguro de eliminar este registro de alimento?`)) {
-            destroy(`/alimentos/${id}`);
+            destroy(`/alimentacion/${id}`);
         }
     };
 
@@ -78,7 +78,7 @@ export default function Index() {
 
             <div className="px-4">
                 {flash.message && (
-                    <Alert className="mb-4 border-green-500 text-green-600 dark:text-green-400">
+                    <Alert className="mb-4 border-green-500 text-green-600 dark:text-green-400 bg-green-50/50 dark:bg-green-950/20">
                         <Megaphone className="h-4 w-4" />
                         <AlertTitle>¡Éxito!</AlertTitle>
                         <AlertDescription>{flash.message}</AlertDescription>
@@ -102,7 +102,7 @@ export default function Index() {
                             {alimentos.data.map((ali) => (
                                 <TableRow key={ali.id}>
                                     <TableCell className="font-mono text-muted-foreground text-xs">#{ali.id}</TableCell>
-                                    <TableCell className="font-medium text-blue-600 dark:text-blue-400">
+                                    <TableCell className="font-medium text-orange-500 dark:orange-blue-300">
                                         {ali.mascota?.nombre || 'N/A'}
                                     </TableCell>
                                     <TableCell>
