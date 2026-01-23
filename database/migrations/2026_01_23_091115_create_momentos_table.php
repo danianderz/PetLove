@@ -12,14 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('momentos', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id(); 
+
+            $table->foreignId('mascota_id')->constrained('mascotas')->onDelete('cascade'); 
+            
+            $table->string('ruta_foto'); 
+            $table->text('anecdota');    
+            
+            $table->timestamp('fecha_creacion')->useCurrent(); 
+
+  
+            $table->timestamps(); 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('momentos');

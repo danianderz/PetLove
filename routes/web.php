@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MascotasController;
 use App\Http\Controllers\ResgistrosController;
 use App\Http\Controllers\AlimentosController;
+use App\Http\Controllers\GastosController;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
@@ -42,6 +43,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     'edit'    => 'alimentacion.edit',
     'update'  => 'alimentacion.update',
     'destroy' => 'alimentacion.destroy',
+]);
+
+    // Rutas para el Control de Gastos
+    Route::resource('gastos', GastosController::class)->names([
+    'index'   => 'gastos.index',
+    'create'  => 'gastos.create',
+    'store'   => 'gastos.store',
+    'edit'    => 'gastos.edit',
+    'update'  => 'gastos.update',
+    'destroy' => 'gastos.destroy',
 ]);
     
 });
