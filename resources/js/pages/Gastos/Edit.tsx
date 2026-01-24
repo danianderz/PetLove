@@ -127,7 +127,9 @@ export default function Edit({ gasto, mascotas }: Props) {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Monto */}
                         <div className='grid gap-2'>
-                            <Label htmlFor="monto">Monto ($):</Label>
+                            <Label htmlFor="monto" className="flex items-center gap-2">
+                                <Wallet className="w-4 h-4 text-emerald-500" /> Monto ($):
+                            </Label>
                             <div className="relative">
                                 <span className="absolute left-3 top-2.5 text-muted-foreground">$</span>
                                 <Input 
@@ -146,7 +148,7 @@ export default function Edit({ gasto, mascotas }: Props) {
                         {/* Fecha */}
                         <div className='grid gap-2'>
                             <Label htmlFor="fecha" className="flex items-center gap-2">
-                                <Calendar className="w-4 h-4 text-emerald-500" /> Fecha del Gasto:
+                                <Calendar className="w-4 h-4 text-emerald-500" /> Fecha:
                             </Label>
                             <Input 
                                 id="fecha"

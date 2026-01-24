@@ -70,8 +70,8 @@ export default function Index() {
                     <Wallet className="w-5 h-5 text-emerald-500" /> Control de Gastos
                 </h2>
                 <Link href="/gastos/create">
-                    <Button className='bg-emerald-600 hover:bg-emerald-700 font-semibold text-white'>
-                        <Plus className="w-4 h-4 mr-1" /> Nuevo Gasto
+                    <Button className='bg-emerald-600 hover:bg-emerald-700 font-semibold'>
+                       Nuevo Gasto
                     </Button>
                 </Link>
             </div>

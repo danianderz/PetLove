@@ -5,8 +5,9 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { ImageIcon, InfoIcon, Weight, Calendar, PawPrint, Save, PlusCircle } from 'lucide-react';
+import { ImageIcon, InfoIcon, Weight, Calendar, PawPrint, Save, PlusCircle, Camera,X } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { useEffect, useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Mascotas', href: '/mascotas' },
@@ -15,6 +16,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Create() {
     const hoy = new Date().toISOString().split("T")[0];
+    const [preview, setPreview] = useState<string | null>(null);
     const { data, setData, post, errors, processing } = useForm({
         nombre: '',
         raza: '',
@@ -23,6 +25,16 @@ export default function Create() {
         peso: '',
         genero: 'Macho',
     });
+    
+     useEffect(() => {
+            if (!data.foto) {
+                setPreview(null);
+                return;
+            }
+            const objectUrl = URL.createObjectURL(data.foto);
+            setPreview(objectUrl);
+            return () => URL.revokeObjectURL(objectUrl);
+        }, [data.foto]);
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -37,10 +49,10 @@ export default function Create() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Añadir Mascota" />
             <div className='w-full max-w-2xl p-6'>
-                
+
                 <div className="mb-6">
                     <h2 className="text-2xl font-bold flex items-center gap-2">
-                         <PlusCircle className="w-6 h-6 text-yellow-500"/>
+                        <PlusCircle className="w-6 h-6 text-yellow-500" />
                         Registrar Nueva Mascota
                     </h2>
                     <p className="text-muted-foreground text-sm">Registra los datos básicos de tu nuevo compañero.</p>
@@ -62,22 +74,22 @@ export default function Create() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className='grid gap-2'>
                             <Label htmlFor="nombre">Nombre:</Label>
-                            <Input 
+                            <Input
                                 id="nombre"
-                                placeholder="Ej: Max, Luna..." 
-                                value={data.nombre} 
-                                onChange={(e) => setData('nombre', e.target.value)} 
+                                placeholder="Ej: Max, Luna..."
+                                value={data.nombre}
+                                onChange={(e) => setData('nombre', e.target.value)}
                             />
                             {errors.nombre && <p className="text-red-500 text-xs">{errors.nombre}</p>}
                         </div>
 
                         <div className='grid gap-2'>
                             <Label htmlFor="raza">Raza:</Label>
-                            <Input 
+                            <Input
                                 id="raza"
-                                placeholder="Ej: Golden Retriever" 
-                                value={data.raza} 
-                                onChange={(e) => setData('raza', e.target.value)} 
+                                placeholder="Ej: Golden Retriever"
+                                value={data.raza}
+                                onChange={(e) => setData('raza', e.target.value)}
                             />
                             {errors.raza && <p className="text-red-500 text-xs">{errors.raza}</p>}
                         </div>
@@ -87,7 +99,7 @@ export default function Create() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className='grid gap-2'>
                             <Label htmlFor="fecha_nacimiento" className="flex items-center gap-2">
-                                <Calendar className="w-4 h-4" /> Fecha de Nacimiento:
+                                <Calendar className="w-4 h-4 text-yellow-500" /> Fecha de Nacimiento:
                             </Label>
                             <Input
                                 id="fecha_nacimiento"
@@ -100,15 +112,15 @@ export default function Create() {
 
                         <div className='grid gap-2'>
                             <Label htmlFor="peso" className="flex items-center gap-2">
-                                <Weight className="w-4 h-4" /> Peso (kg):
+                                <Weight className="w-4 h-4 text-yellow-500" /> Peso (kg):
                             </Label>
-                            <Input 
+                            <Input
                                 id="peso"
-                                type="number" 
-                                step="0.01" 
-                                placeholder="0.00" 
-                                value={data.peso} 
-                                onChange={(e) => setData('peso', e.target.value)} 
+                                type="number"
+                                step="0.01"
+                                placeholder="0.00"
+                                value={data.peso}
+                                onChange={(e) => setData('peso', e.target.value)}
                             />
                         </div>
                     </div>
@@ -132,24 +144,64 @@ export default function Create() {
                         </RadioGroup>
                     </div>
 
-                    {/* Foto de Perfil */}
+                    {/* Foto de Perfil de la Mascota */}
                     <div className='grid gap-2'>
                         <Label htmlFor="foto" className="flex items-center gap-2">
-                            <ImageIcon className="w-4 h-4" /> Foto de la mascota:
+                            <ImageIcon className="w-4 h-4 text-yellow-500" /> Foto de la mascota:
                         </Label>
-                        <Input 
-                            id="foto"
-                            type="file" 
-                            className="cursor-pointer"
-                            onChange={(e) => setData('foto', e.target.files ? e.target.files[0] : null)} 
-                        />
-                        <p className="text-[10px] text-muted-foreground uppercase tracking-widest">JPG, PNG. Máx 2MB.</p>
+
+                        <div className="flex flex-col items-center justify-center space-y-4">
+                            {!preview ? (
+                                /* Estado: Sin foto seleccionada (Zona de click) */
+                                <div className="w-40 h-40 border-2 border-dashed border-muted-foreground/20 rounded-full flex flex-col items-center justify-center bg-secondary/10 hover:bg-secondary/20 transition-colors cursor-pointer relative overflow-hidden">
+                                    <Camera className="w-8 h-8 text-muted-foreground mb-1" />
+                                    <span className="text-[10px] text-center px-4 text-muted-foreground uppercase font-semibold">Subir Foto</span>
+                                    <input
+                                        type="file"
+                                        id="foto"
+                                        accept="image/*"
+                                        className="absolute inset-0 opacity-0 cursor-pointer"
+                                        onChange={(e) => setData('foto', e.target.files?.[0] || null)}
+                                    />
+                                </div>
+                            ) : (
+                                /* Estado: Con Foto seleccionada (Preview circular) */
+                                <div className="relative">
+                                    <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-lg bg-secondary">
+                                        <img
+                                            src={preview}
+                                            alt="Vista previa mascota"
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                    {/* Botón para quitar la foto */}
+                                    <Button
+                                        type="button"
+                                        variant="destructive"
+                                        size="icon"
+                                        className="absolute -top-1 -right-1 rounded-full h-8 w-8 shadow-md"
+                                        onClick={() => {
+                                            setData('foto', null);
+                                            // Si vienes de una edición, quizás quieras resetear el preview a la imagen original aquí
+                                        }}
+                                    >
+                                        <X className="w-4 h-4" />
+                                    </Button>
+                                </div>
+                            )}
+
+                            <p className="text-[10px] text-muted-foreground uppercase tracking-widest text-center">
+                                JPG, PNG. Máx 2MB.
+                            </p>
+                        </div>
+
+                        {errors.foto && <p className="text-red-500 text-xs mt-1">{errors.foto}</p>}
                     </div>
 
                     <div className="flex gap-4">
-                        <Button 
-                            disabled={processing} 
-                            type="submit" 
+                        <Button
+                            disabled={processing}
+                            type="submit"
                             className="bg-yellow-500 hover:bg-yellow-600 flex-1"
                         >
                             <Save className="w-4 h-4 mr-2" />

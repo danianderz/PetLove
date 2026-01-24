@@ -55,6 +55,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     'update'  => 'gastos.update',
     'destroy' => 'gastos.destroy',
 ]);
+Route::get('momentos/{id}/download', [MomentosController::class, 'download'])
+    ->name('momentos.download');
     Route::resource('momentos', MomentosController::class)->names([
     'index'   => 'momentos.index',
     'create'  => 'momentos.create',
@@ -62,6 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     'edit'    => 'momentos.edit',
     'update'  => 'momentos.update',
     'destroy' => 'momentos.destroy',
+    
 ]);
     
 
