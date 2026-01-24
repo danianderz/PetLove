@@ -12,7 +12,7 @@ import {
     SelectTrigger, 
     SelectValue 
 } from "@/components/ui/select";
-import { InfoIcon, PlusCircle, Save, Stethoscope } from 'lucide-react';
+import { Calendar, InfoIcon, PlusCircle, Save, Stethoscope } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 import { Switch } from '@/components/ui/switch'; // Para el campo 'completado'
@@ -93,7 +93,9 @@ export default function Create({ mascotas }: Props) {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {/* Tipo de Registro */}
                         <div className='grid gap-2'>
-                            <Label htmlFor="tipo">Tipo de atención:</Label>
+                            <Label htmlFor="fecha" className="flex items-center gap-2">
+                                <Stethoscope className="w-4 h-4 text-blue-600" /> Tipo de atención:
+                            </Label>
                             <Select defaultValue={data.tipo} onValueChange={(value) => setData('tipo', value)}>
                                 <SelectTrigger>
                                     <SelectValue placeholder="Tipo" />
@@ -111,7 +113,9 @@ export default function Create({ mascotas }: Props) {
 
                         {/* Fecha de la Cita */}
                         <div className='grid gap-2'>
-                            <Label htmlFor="fecha_cita">Fecha y Hora:</Label>
+                            <Label htmlFor="fecha" className="flex items-center gap-2">
+                                <Calendar className="w-4 h-4 text-blue-600" /> Fecha y Hora:
+                            </Label>
                             <Input 
                                 type="datetime-local" 
                                 value={data.fecha_cita} 
