@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid, Dog, Syringe, Bone, HandCoins, Image} from 'lucide-react';
+import { Dog, Syringe, HandCoins, Image, UtensilsCrossed} from 'lucide-react';
 
 import { NavFooter } from '@/components/nav-footer';
 import { NavMain } from '@/components/nav-main';
@@ -33,7 +33,7 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Alimentacion',
         href: '/alimentacion',
-        icon: Bone,
+        icon: UtensilsCrossed,
     },
     {
         title: 'Gastos',

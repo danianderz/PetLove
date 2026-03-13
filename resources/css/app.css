@@ -140,4 +140,8 @@
     body {
         @apply bg-background text-foreground;
     }
+    html {
+    /* El estándar es 16px. El 125% sería 20px */
+    font-size: 20px;
+  }
 }

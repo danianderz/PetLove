@@ -34,4 +34,15 @@ class Mascota extends Model
     {
         return $this->hasMany(Alimento::class);
     }
+
+    public function gastos(): HasMany
+    {
+    return $this->hasMany(Gasto::class);
+    }
+    
+    public function momentos(): HasMany
+{
+    return $this->hasMany(Momento::class);
+}
+
 }

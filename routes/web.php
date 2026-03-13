@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MascotasController;
 use App\Http\Controllers\ResgistrosController;
 use App\Http\Controllers\AlimentosController;
+use App\Http\Controllers\GastosController;
+use App\Http\Controllers\MomentosController;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
@@ -43,7 +45,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
     'update'  => 'alimentacion.update',
     'destroy' => 'alimentacion.destroy',
 ]);
+
+    // Rutas para el Control de Gastos
+    Route::resource('gastos', GastosController::class)->names([
+    'index'   => 'gastos.index',
+    'create'  => 'gastos.create',
+    'store'   => 'gastos.store',
+    'edit'    => 'gastos.edit',
+    'update'  => 'gastos.update',
+    'destroy' => 'gastos.destroy',
+]);
+Route::get('momentos/{id}/download', [MomentosController::class, 'download'])
+    ->name('momentos.download');
+    Route::resource('momentos', MomentosController::class)->names([
+    'index'   => 'momentos.index',
+    'create'  => 'momentos.create',
+    'store'   => 'momentos.store',
+    'edit'    => 'momentos.edit',
+    'update'  => 'momentos.update',
+    'destroy' => 'momentos.destroy',
     
+]);
+    
+
 });
 
 require __DIR__.'/settings.php';
