@@ -1,21 +1,8 @@
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { create, edit } from '@/routes/mascotas'; 
 import { Megaphone, Cat, Edit3, Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
-
-
+import { Button } from '@/components/ui/button';
 import {
     Pagination,
     PaginationContent,
@@ -24,6 +11,17 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
+import AppLayout from '@/layouts/app-layout';
+import { edit } from '@/routes/mascotas'; 
+import { type BreadcrumbItem } from '@/types';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Mascotas', href: '/mascotas' },

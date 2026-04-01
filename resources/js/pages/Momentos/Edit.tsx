@@ -1,10 +1,11 @@
 import { Head, useForm, Link } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { InfoIcon, Save, Camera, Pencil } from 'lucide-react';
+import { useState, useEffect } from 'react';
+
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { 
     Select, 
     SelectContent, 
@@ -12,10 +13,10 @@ import {
     SelectTrigger, 
     SelectValue 
 } from "@/components/ui/select";
-import { InfoIcon, Save, Camera, Pencil, X } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { useState, useEffect } from 'react';
+import { Textarea } from '@/components/ui/textarea';
+import AppLayout from '@/layouts/app-layout';
 import { update } from '@/routes/momentos';
+import { type BreadcrumbItem } from '@/types';
 
 interface Mascota {
     id: number;
@@ -51,17 +52,24 @@ export default function Edit({ mascotas, momento }: Props) {
         fecha_creacion: momento.fecha_creacion.split(' ')[0], 
     });
 
-    // Manejar previsualización
     useEffect(() => {
-        if (!data.foto) {
+        let objectUrl: string | null = null;
 
-            setPreview(`/storage/${momento.ruta_foto}`);
-            return;
+    const frameId = requestAnimationFrame(() => {
+        if (!data.foto) {
+            const originalPath = `/storage/${momento.ruta_foto}`;
+            setPreview((current) => (current !== originalPath ? originalPath : current));
+        } else {
+            objectUrl = URL.createObjectURL(data.foto);
+            setPreview((current) => (current !== objectUrl ? objectUrl : current));
         }
-        const objectUrl = URL.createObjectURL(data.foto);
-        setPreview(objectUrl);
-        return () => URL.revokeObjectURL(objectUrl);
-    }, [data.foto]);
+    });
+
+    return () => {
+        cancelAnimationFrame(frameId);
+        if (objectUrl) URL.revokeObjectURL(objectUrl);
+    };
+}, [data.foto, momento.ruta_foto]);
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();

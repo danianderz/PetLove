@@ -13,11 +13,10 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard } from '@/routes';
+import mascotas from '@/routes/mascotas';
 import { type NavItem } from '@/types';
 
 import AppLogo from './app-logo';
-import mascotas from '@/routes/mascotas';
 
 const mainNavItems: NavItem[] = [
     {

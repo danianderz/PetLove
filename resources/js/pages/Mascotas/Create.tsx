@@ -1,13 +1,17 @@
 import { Head, Link, useForm } from '@inertiajs/react';
+import { ImageIcon, InfoIcon, Weight, Calendar, Save, PlusCircle, Camera,X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem } from '@/types';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { ImageIcon, InfoIcon, Weight, Calendar, PawPrint, Save, PlusCircle, Camera,X } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { useEffect, useState } from 'react';
+
+
+
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Mascotas', href: '/mascotas' },
@@ -27,14 +31,24 @@ export default function Create() {
     });
     
      useEffect(() => {
-            if (!data.foto) {
-                setPreview(null);
-                return;
-            }
-            const objectUrl = URL.createObjectURL(data.foto);
-            setPreview(objectUrl);
-            return () => URL.revokeObjectURL(objectUrl);
-        }, [data.foto]);
+    let objectUrl: string | null = null;
+
+    const frameId = requestAnimationFrame(() => {
+        if (!data.foto) {
+            setPreview((current) => (current !== null ? null : current));
+        } else {
+            objectUrl = URL.createObjectURL(data.foto);
+            setPreview((current) => (current !== objectUrl ? objectUrl : current));
+        }
+    });
+
+    return () => {
+        cancelAnimationFrame(frameId);
+        if (objectUrl) {
+            URL.revokeObjectURL(objectUrl);
+        }
+    };
+}, [data.foto]);
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();

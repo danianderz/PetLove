@@ -1,10 +1,10 @@
 import { Head, useForm, Link } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { InfoIcon, Save, Wallet, PlusCircle, Calendar } from 'lucide-react';
+
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { 
     Select, 
     SelectContent, 
@@ -12,8 +12,11 @@ import {
     SelectTrigger, 
     SelectValue 
 } from "@/components/ui/select";
-import { InfoIcon, Save, Wallet, PlusCircle, Calendar } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Textarea } from '@/components/ui/textarea';
+import AppLayout from '@/layouts/app-layout';
+import { type BreadcrumbItem } from '@/types';
+
+
 
 interface Mascota {
     id: number;

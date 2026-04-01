@@ -1,14 +1,18 @@
 import { Head, Link, useForm } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { ImageIcon, InfoIcon, Weight, Calendar, PawPrint, Save, Pencil, X, Camera } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { update } from '@/routes/mascotas';
+import { ImageIcon, InfoIcon, Weight, Calendar, Save, Pencil, Camera } from 'lucide-react';
 import { useEffect, useState } from 'react';
+
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import AppLayout from '@/layouts/app-layout';
+import { update } from '@/routes/mascotas';
+import { type BreadcrumbItem } from '@/types';
+
+
+
 
 interface Mascota {
     id: number;
@@ -44,14 +48,25 @@ export default function Edit({ mascota }: Props) {
     });
 
     useEffect(() => {
+    let objectUrl: string | null = null;
+
+    const frameId = requestAnimationFrame(() => {
         if (!data.foto) {
-            setPreview(`/storage/${mascota.foto}`);
-            return;
+            const originalPath = `/storage/${mascota.foto}`;
+            setPreview((current) => (current !== originalPath ? originalPath : current));
+        } else {
+            objectUrl = URL.createObjectURL(data.foto);
+            setPreview((current) => (current !== objectUrl ? objectUrl : current));
         }
-        const objectUrl = URL.createObjectURL(data.foto);
-        setPreview(objectUrl);
-        return () => URL.revokeObjectURL(objectUrl);
-    }, [data.foto]);
+    });
+
+    return () => {
+        cancelAnimationFrame(frameId);
+        if (objectUrl) {
+            URL.revokeObjectURL(objectUrl);
+        }
+    };
+}, [data.foto, mascota.foto]); 
 
     function handleUpdate(e: React.FormEvent) {
         e.preventDefault();

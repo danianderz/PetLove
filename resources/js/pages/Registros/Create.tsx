@@ -1,10 +1,10 @@
 import { Head, useForm, Link } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
-import { type BreadcrumbItem } from '@/types';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
+import { Calendar, InfoIcon, PlusCircle, Save, Stethoscope } from 'lucide-react';
+
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea'; // Asumiendo que tienes este componente de Shadcn
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { 
     Select, 
     SelectContent, 
@@ -12,10 +12,10 @@ import {
     SelectTrigger, 
     SelectValue 
 } from "@/components/ui/select";
-import { Calendar, InfoIcon, PlusCircle, Save, Stethoscope } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-
 import { Switch } from '@/components/ui/switch'; // Para el campo 'completado'
+import { Textarea } from '@/components/ui/textarea'; // Asumiendo que tienes este componente de Shadcn
+import AppLayout from '@/layouts/app-layout';
+import { type BreadcrumbItem } from '@/types';
 
 interface Mascota {
     id: number;
